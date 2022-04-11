@@ -8,6 +8,7 @@ import Home from "../pages/home";
 import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
 
+//TODO: Move those routes to pages folder
 export default function App() {
   return (
     <>
