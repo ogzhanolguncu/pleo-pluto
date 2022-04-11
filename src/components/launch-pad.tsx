@@ -20,8 +20,8 @@ import {
 import { useSpaceX } from "../utils/use-space-x";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
-import { LaunchItem } from "./launches";
 import type { LaunchList, LaunchPad as LaunchedTypes } from "../types/global";
+import { LaunchItem } from "./LaunchItem";
 
 export default function LaunchPad() {
   let { launchPadId } = useParams();

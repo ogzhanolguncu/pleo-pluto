@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/react";
 
-import Launches from "./launches";
+import Launches from "../pages/launches";
 import Launch from "./launch";
 import Home from "../pages/home";
 import LaunchPads from "./launch-pads";
