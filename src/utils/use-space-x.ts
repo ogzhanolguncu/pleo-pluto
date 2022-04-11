@@ -1,30 +1,38 @@
 import useSWR, { useSWRInfinite } from "swr";
+import type { LaunchList } from "../types/global";
 
-const fetcher = async (...args) => {
-  const response = await fetch(...args);
+type Options = {
+  "limit": number,
+  "order": "desc" | "asc",
+  "sort": string,
+  "offset"?: number
+}
+
+const fetcher = async (path: string) => {
+  const response = await fetch(path);
   if (!response.ok) {
     throw Error(response.statusText);
   }
   return await response.json();
 };
 
-function getSpaceXUrl(path, options) {
+const getSpaceXUrl = (path: string, options: Options) => {
   const searchParams = new URLSearchParams();
   for (const property in options) {
-    searchParams.append(property, options[property]);
+    searchParams.append(property, (options as any)[property as string | number]);
   }
 
   const spaceXApiBase = process.env.REACT_APP_SPACEX_API_URL;
   return `${spaceXApiBase}${path}?${searchParams.toString()}`;
 }
 
-export function useSpaceX(path, options) {
+export const useSpaceX = (path: string, options: Options) => {
   const endpointUrl = getSpaceXUrl(path, options);
   return useSWR(path ? endpointUrl : null, fetcher);
 }
 
-export function useSpaceXPaginated(path, options) {
-  return useSWRInfinite((pageIndex, previousPageData) => {
+export const useSpaceXPaginated = (path: string, options: Options) => {
+  return useSWRInfinite<LaunchList>((pageIndex, previousPageData) => {
     if (previousPageData && !previousPageData.length) {
       return null;
     }
@@ -32,5 +40,5 @@ export function useSpaceXPaginated(path, options) {
       ...options,
       offset: options.limit * pageIndex,
     });
-  }, fetcher);
+  }, fetcher)
 }

@@ -8,6 +8,7 @@ import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
+import { Launch } from "../types/global";
 
 const PAGE_SIZE = 12;
 
@@ -20,11 +21,14 @@ export default function Launches() {
       sort: "launch_date_utc",
     }
   );
-  console.log(data, error);
+
   return (
-    <div>
+    <>
       <Breadcrumbs
-        items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
+        items={[
+          { label: "Home", to: "/" },
+          { label: "Launches", to: "#" },
+        ]}
       />
       <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
         {error && <Error />}
@@ -41,11 +45,11 @@ export default function Launches() {
         pageSize={PAGE_SIZE}
         isLoadingMore={isValidating}
       />
-    </div>
+    </>
   );
 }
 
-export function LaunchItem({ launch }) {
+export const LaunchItem = ({ launch }: { launch: Launch }) => {
   return (
     <Box
       as={Link}
@@ -72,7 +76,7 @@ export function LaunchItem({ launch }) {
         position="absolute"
         top="5"
         right="5"
-        src={launch.links.mission_patch_small}
+        src={launch.links.mission_patch_small ?? ""}
         height="75px"
         objectFit="contain"
         objectPosition="bottom"
@@ -81,11 +85,11 @@ export function LaunchItem({ launch }) {
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           {launch.launch_success ? (
-            <Badge px="2" variant="solid" variantColor="green">
+            <Badge px="2" variant="solid" colorScheme="green">
               Successful
             </Badge>
           ) : (
-            <Badge px="2" variant="solid" variantColor="red">
+            <Badge px="2" variant="solid" colorScheme="red">
               Failed
             </Badge>
           )}
@@ -119,4 +123,4 @@ export function LaunchItem({ launch }) {
       </Box>
     </Box>
   );
-}
+};
