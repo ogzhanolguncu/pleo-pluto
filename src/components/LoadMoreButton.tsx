@@ -9,12 +9,12 @@ type Props = {
   loadMore: () => void;
 };
 
-export default function LoadMoreButton({
+export const LoadMoreButton = ({
   loadMore,
   data,
   pageSize,
   isLoadingMore,
-}: Props) {
+}: Props) => {
   const isReachingEnd =
     data?.[0]?.length === 0 ||
     (data && data[data.length - 1]?.length < pageSize);
@@ -32,4 +32,4 @@ export default function LoadMoreButton({
       </Button>
     </Flex>
   );
-}
+};

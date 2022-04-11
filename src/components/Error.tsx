@@ -7,7 +7,7 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 
-const Error = () => {
+export const Error = () => {
   return (
     <Flex alignItems="center" justifyContent="center" width="100%">
       <Alert
@@ -30,5 +30,3 @@ const Error = () => {
     </Flex>
   );
 };
-
-export default Error;

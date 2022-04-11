@@ -15,7 +15,7 @@ type Props = {
   }[];
 };
 
-const Breadcrumbs = ({ items }: Props) => {
+export const Breadcrumbs = ({ items }: Props) => {
   return (
     <Breadcrumb
       m="6"
@@ -38,5 +38,3 @@ const Breadcrumbs = ({ items }: Props) => {
     </Breadcrumb>
   );
 };
-
-export default Breadcrumbs;

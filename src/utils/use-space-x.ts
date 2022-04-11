@@ -27,9 +27,9 @@ const getSpaceXUrl = (path: string | null, options?: Options) => {
   return `${spaceXApiBase}${path}?${searchParams.toString()}`;
 }
 
-export const useSpaceX = (path: string | null, options?: Options) => {
+export const useSpaceX = <T>(path: string | null, options?: Options) => {
   const endpointUrl = getSpaceXUrl(path, options);
-  return useSWR(path ? endpointUrl : null, fetcher);
+  return useSWR<T>(path ? endpointUrl : null, fetcher);
 }
 
 export const useSpaceXPaginated = <T>(path: string, options: Options = { limit: PAGE_SIZE }) => {

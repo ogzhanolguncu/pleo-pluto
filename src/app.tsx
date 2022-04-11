@@ -2,13 +2,12 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/react";
 
-import Launches from "../pages/launches";
-import Launch from "./launch";
-import Home from "../pages/home";
-import LaunchPads from "./launch-pads";
-import LaunchPad from "./launch-pad";
+import Launches from "./pages/launches";
+import Launch from "./pages/launch";
+import Home from "./pages/home";
+import LaunchPads from "./pages/launch-pads";
+import LaunchPad from "./pages/launch-pad";
 
-//TODO: Move those routes to pages folder
 export default function App() {
   return (
     <>
