@@ -25,6 +25,7 @@ import { useSpaceX } from "../utils/use-space-x";
 import { formatDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
+import type { Launch as LaunchType } from "../types/global";
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -45,7 +46,7 @@ export default function Launch() {
         items={[
           { label: "Home", to: "/" },
           { label: "Launches", to: "/launches" },
-          { label: `#${launch.flight_number}` },
+          { label: `#${launch.flight_number}`, to: "#" },
         ]}
       />
       <Header launch={launch} />
@@ -62,7 +63,7 @@ export default function Launch() {
   );
 }
 
-function Header({ launch }) {
+const Header = ({ launch }: { launch: LaunchType }) => {
   return (
     <Flex
       bgImage={`url(${launch.links.flickr_images[0]})`}
@@ -79,7 +80,7 @@ function Header({ launch }) {
         position="absolute"
         top="5"
         right="5"
-        src={launch.links.mission_patch_small}
+        src={launch.links.mission_patch_small ?? ""}
         height={["85px", "150px"]}
         objectFit="contain"
         objectPosition="bottom"
@@ -96,24 +97,24 @@ function Header({ launch }) {
         {launch.mission_name}
       </Heading>
       <Stack isInline spacing="3">
-        <Badge variantColor="purple" fontSize={["xs", "md"]}>
+        <Badge colorScheme="purple" fontSize={["xs", "md"]}>
           #{launch.flight_number}
         </Badge>
         {launch.launch_success ? (
-          <Badge variantColor="green" fontSize={["xs", "md"]}>
+          <Badge colorScheme="green" fontSize={["xs", "md"]}>
             Successful
           </Badge>
         ) : (
-          <Badge variantColor="red" fontSize={["xs", "md"]}>
+          <Badge colorScheme="red" fontSize={["xs", "md"]}>
             Failed
           </Badge>
         )}
       </Stack>
     </Flex>
   );
-}
+};
 
-function TimeAndLocation({ launch }) {
+const TimeAndLocation = ({ launch }: { launch: LaunchType }) => {
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
@@ -147,9 +148,9 @@ function TimeAndLocation({ launch }) {
       </Stat>
     </SimpleGrid>
   );
-}
+};
 
-function RocketInfo({ launch }) {
+const RocketInfo = ({ launch }: { launch: LaunchType }) => {
   const cores = launch.rocket.first_stage.cores;
 
   return (
@@ -211,9 +212,9 @@ function RocketInfo({ launch }) {
       </StatGroup>
     </SimpleGrid>
   );
-}
+};
 
-function Video({ launch }) {
+const Video = ({ launch }: { launch: LaunchType }) => {
   return (
     <AspectRatio maxH="400px" ratio={1.7}>
       <Box
@@ -224,16 +225,20 @@ function Video({ launch }) {
       />
     </AspectRatio>
   );
-}
+};
 
-function Gallery({ images }) {
+const Gallery = ({ images }: { images: string[] }) => {
   return (
     <SimpleGrid my="6" minChildWidth="350px" spacing="4">
       {images.map((image) => (
         <a href={image} key={image}>
-          <Image src={image.replace("_o.jpg", "_z.jpg")} />
+          <Image
+            src={image.replace("_o.jpg", "_z.jpg")}
+            loading="lazy"
+            decoding="async"
+          />
         </a>
       ))}
     </SimpleGrid>
   );
-}
+};

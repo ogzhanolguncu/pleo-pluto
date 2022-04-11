@@ -16,7 +16,7 @@ const fetcher = async (path: string) => {
   return await response.json();
 };
 
-const getSpaceXUrl = (path: string, options: Options) => {
+const getSpaceXUrl = (path: string, options?: Options) => {
   const searchParams = new URLSearchParams();
   for (const property in options) {
     searchParams.append(property, (options as any)[property as string | number]);
@@ -26,7 +26,7 @@ const getSpaceXUrl = (path: string, options: Options) => {
   return `${spaceXApiBase}${path}?${searchParams.toString()}`;
 }
 
-export const useSpaceX = (path: string, options: Options) => {
+export const useSpaceX = (path: string, options?: Options) => {
   const endpointUrl = getSpaceXUrl(path, options);
   return useSWR(path ? endpointUrl : null, fetcher);
 }
