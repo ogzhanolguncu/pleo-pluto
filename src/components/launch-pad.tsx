@@ -21,6 +21,7 @@ import { useSpaceX } from "../utils/use-space-x";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import { LaunchItem } from "./launches";
+import type { LaunchList, LaunchPad as LaunchedTypes } from "../types/global";
 
 export default function LaunchPad() {
   let { launchPadId } = useParams();
@@ -48,7 +49,7 @@ export default function LaunchPad() {
         items={[
           { label: "Home", to: "/" },
           { label: "Launch Pads", to: "/launch-pads" },
-          { label: launchPad.name },
+          { label: launchPad.name, to: "#" },
         ]}
       />
       <Header launchPad={launchPad} />
@@ -67,7 +68,7 @@ export default function LaunchPad() {
 const randomColor = (start = 200, end = 250) =>
   `hsl(${start + end * Math.random()}, 80%, 90%)`;
 
-function Header({ launchPad }) {
+const Header = ({ launchPad }: { launchPad: LaunchedTypes }) => {
   return (
     <Flex
       background={`linear-gradient(${randomColor()}, ${randomColor()})`}
@@ -92,25 +93,25 @@ function Header({ launchPad }) {
         {launchPad.site_name_long}
       </Heading>
       <Stack isInline spacing="3">
-        <Badge variantColor="purple" fontSize={["sm", "md"]}>
+        <Badge colorScheme="purple" fontSize={["sm", "md"]}>
           {launchPad.successful_launches}/{launchPad.attempted_launches}{" "}
           successful
         </Badge>
-        {launchPad.stats === "active" ? (
-          <Badge variantColor="green" fontSize={["sm", "md"]}>
+        {launchPad.status === "active" ? (
+          <Badge colorScheme="green" fontSize={["sm", "md"]}>
             Active
           </Badge>
         ) : (
-          <Badge variantColor="red" fontSize={["sm", "md"]}>
+          <Badge colorScheme="red" fontSize={["sm", "md"]}>
             Retired
           </Badge>
         )}
       </Stack>
     </Flex>
   );
-}
+};
 
-function LocationAndVehicles({ launchPad }) {
+const LocationAndVehicles = ({ launchPad }: { launchPad: LaunchedTypes }) => {
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
@@ -136,21 +137,24 @@ function LocationAndVehicles({ launchPad }) {
       </Stat>
     </SimpleGrid>
   );
-}
+};
 
-function Map({ location }) {
+function Map({
+  location,
+}: {
+  location: { latitude: string; longitude: string };
+}) {
   return (
     <AspectRatio ratio={16 / 5}>
       <Box
         as="iframe"
         src={`https://maps.google.com/maps?q=${location.latitude}, ${location.longitude}&z=15&output=embed`}
-        alt="demo"
       />
     </AspectRatio>
   );
 }
 
-function RecentLaunches({ launches }) {
+const RecentLaunches = ({ launches }: { launches: LaunchList }) => {
   if (!launches?.length) {
     return null;
   }
@@ -166,4 +170,4 @@ function RecentLaunches({ launches }) {
       </SimpleGrid>
     </Stack>
   );
-}
+};
