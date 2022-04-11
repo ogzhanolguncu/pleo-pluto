@@ -1,12 +1,20 @@
 import React from "react";
-import { Spinner, Flex, Button } from "@chakra-ui/core";
+import { Spinner, Flex, Button } from "@chakra-ui/react";
+import { LaunchList, LaunchPadList } from "../types/global";
 
-export default function LoadMoreButton({
+type Props = {
+  data?: LaunchList[] | LaunchPadList[];
+  pageSize: number;
+  isLoadingMore: boolean;
+  loadMore: () => void;
+};
+
+export const LoadMoreButton = ({
   loadMore,
   data,
   pageSize,
   isLoadingMore,
-}) {
+}: Props) => {
   const isReachingEnd =
     data?.[0]?.length === 0 ||
     (data && data[data.length - 1]?.length < pageSize);
@@ -24,4 +32,4 @@ export default function LoadMoreButton({
       </Button>
     </Flex>
   );
-}
+};

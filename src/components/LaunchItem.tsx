@@ -1,51 +1,11 @@
+import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
-import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core";
-import { format as timeAgo } from "timeago.js";
 import { Link } from "react-router-dom";
-
-import { useSpaceXPaginated } from "../utils/use-space-x";
+import { Launch } from "../types/global";
 import { formatDate } from "../utils/format-date";
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
-import LoadMoreButton from "./load-more-button";
+import { format as timeAgo } from "timeago.js";
 
-const PAGE_SIZE = 12;
-
-export default function Launches() {
-  const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
-    "/launches/past",
-    {
-      limit: PAGE_SIZE,
-      order: "desc",
-      sort: "launch_date_utc",
-    }
-  );
-  console.log(data, error);
-  return (
-    <div>
-      <Breadcrumbs
-        items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
-      />
-      <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
-        {error && <Error />}
-        {data &&
-          data
-            .flat()
-            .map((launch) => (
-              <LaunchItem launch={launch} key={launch.flight_number} />
-            ))}
-      </SimpleGrid>
-      <LoadMoreButton
-        loadMore={() => setSize(size + 1)}
-        data={data}
-        pageSize={PAGE_SIZE}
-        isLoadingMore={isValidating}
-      />
-    </div>
-  );
-}
-
-export function LaunchItem({ launch }) {
+export const LaunchItem = ({ launch }: { launch: Launch }) => {
   return (
     <Box
       as={Link}
@@ -66,26 +26,30 @@ export function LaunchItem({ launch }) {
         width="100%"
         objectFit="cover"
         objectPosition="bottom"
+        loading="lazy"
+        decoding="async"
       />
 
       <Image
         position="absolute"
         top="5"
         right="5"
-        src={launch.links.mission_patch_small}
+        src={launch.links.mission_patch_small ?? ""}
         height="75px"
         objectFit="contain"
         objectPosition="bottom"
+        loading="lazy"
+        decoding="async"
       />
 
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           {launch.launch_success ? (
-            <Badge px="2" variant="solid" variantColor="green">
+            <Badge px="2" variant="solid" colorScheme="green">
               Successful
             </Badge>
           ) : (
-            <Badge px="2" variant="solid" variantColor="red">
+            <Badge px="2" variant="solid" colorScheme="red">
               Failed
             </Badge>
           )}
@@ -119,4 +83,4 @@ export function LaunchItem({ launch }) {
       </Box>
     </Box>
   );
-}
+};
