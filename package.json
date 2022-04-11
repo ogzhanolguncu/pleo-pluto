@@ -24,10 +24,32 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "prepare": "husky install"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "no-console": "warn",
+      "no-unneeded-ternary": "error",
+      "@typescript-eslint/no-unused-vars": "error",
+      "eqeqeq": "error"
+    },
+    "ignorePatterns": [
+      "src/**/*.d.ts",
+      "node_modules/"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx},!src/**/*.d.ts": [
+      "prettier --write",
+      "eslint --max-warnings=0"
+    ],
+    "*.{tsx,jsx,ts,js}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   },
   "browserslist": {
     "production": [
@@ -40,5 +62,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.2"
   }
 }
