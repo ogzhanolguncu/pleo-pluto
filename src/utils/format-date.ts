@@ -7,7 +7,7 @@ export function formatDate(timestamp: Date | string) {
   }).format(new Date(timestamp));
 }
 
-export function formatDateTime(timestamp: Date | string) {
+export function formatDateTime(timestamp: Date | string, timeZoneAllowed: boolean = true) {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "long",
@@ -15,6 +15,6 @@ export function formatDateTime(timestamp: Date | string) {
     hour: "numeric",
     minute: "numeric",
     second: "numeric",
-    timeZoneName: "short",
+    timeZoneName: timeZoneAllowed ? "short" : undefined,
   }).format(new Date(timestamp));
 }
