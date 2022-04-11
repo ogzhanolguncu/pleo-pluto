@@ -6,6 +6,7 @@ import {
   StatHelpText,
   Box,
   Link,
+  Tooltip,
 } from "@chakra-ui/react";
 import React from "react";
 import { MapPin, Watch } from "react-feather";
@@ -16,6 +17,11 @@ import type { Launch } from "../types/global";
 import { formatDateTime } from "../utils/format-date";
 
 export const TimeAndLocation = ({ launch }: { launch: Launch }) => {
+  const localTimeOfLaunchSite = formatDateTime(
+    launch.launch_date_utc.split("Z")[0]
+  );
+  const localTimeOfUser = formatDateTime(launch.launch_date_utc, false);
+
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
@@ -25,9 +31,22 @@ export const TimeAndLocation = ({ launch }: { launch: Launch }) => {
             Launch Date
           </Box>
         </StatLabel>
-        <StatNumber fontSize={["md", "xl"]}>
-          {formatDateTime(launch.launch_date_local)}
-        </StatNumber>
+        <Tooltip
+          label={localTimeOfUser}
+          aria-label="local-time-of-user"
+          hasArrow
+          placement="bottom-start"
+        >
+          <StatNumber
+            fontSize={["md", "xl"]}
+            _hover={{
+              cursor: "context-menu",
+            }}
+          >
+            {localTimeOfLaunchSite}
+          </StatNumber>
+        </Tooltip>
+
         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
       </Stat>
       <Stat>
