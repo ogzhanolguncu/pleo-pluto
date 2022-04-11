@@ -1,11 +1,29 @@
-import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, Icon, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Launch } from "../types/global";
 import { formatDate } from "../utils/format-date";
 import { format as timeAgo } from "timeago.js";
+import { Star } from "react-feather";
 
-export const LaunchItem = ({ launch }: { launch: Launch }) => {
+type Props = {
+  launch: Launch;
+  onFavoriteAdd?: (launch: Launch) => void;
+  favorites?: Launch[] | undefined;
+};
+
+export const LaunchItem = ({ launch, onFavoriteAdd, favorites }: Props) => {
+  const handleFavoriteAdd = (
+    event: React.MouseEvent<SVGElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    onFavoriteAdd?.(launch);
+  };
+
+  const isLaunchFavorite = favorites?.find(
+    (launchItem) => launchItem.flight_number === launch.flight_number
+  );
+
   return (
     <Box
       as={Link}
@@ -62,6 +80,16 @@ export const LaunchItem = ({ launch }: { launch: Launch }) => {
             ml="2"
           >
             {launch.rocket.rocket_name} &bull; {launch.launch_site.site_name}
+          </Box>
+          <Box ml="7">
+            <Icon
+              w="5"
+              h="5"
+              as={Star}
+              onClick={handleFavoriteAdd}
+              fill={isLaunchFavorite && "blue.400"}
+              stroke={isLaunchFavorite && "blue.400"}
+            />
           </Box>
         </Box>
 
