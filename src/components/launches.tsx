@@ -9,18 +9,15 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import { Launch } from "../types/global";
-
-const PAGE_SIZE = 12;
+import { PAGE_SIZE } from "../constants";
 
 export default function Launches() {
-  const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
-    "/launches/past",
-    {
+  const { data, error, isValidating, setSize, size } =
+    useSpaceXPaginated<Launch>("/launches/past", {
       limit: PAGE_SIZE,
       order: "desc",
       sort: "launch_date_utc",
-    }
-  );
+    });
 
   return (
     <>
@@ -70,6 +67,8 @@ export const LaunchItem = ({ launch }: { launch: Launch }) => {
         width="100%"
         objectFit="cover"
         objectPosition="bottom"
+        loading="lazy"
+        decoding="async"
       />
 
       <Image
@@ -80,6 +79,8 @@ export const LaunchItem = ({ launch }: { launch: Launch }) => {
         height="75px"
         objectFit="contain"
         objectPosition="bottom"
+        loading="lazy"
+        decoding="async"
       />
 
       <Box p="6">

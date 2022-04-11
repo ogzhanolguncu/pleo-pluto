@@ -6,21 +6,22 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import { useSpaceXPaginated } from "../utils/use-space-x";
+import { PAGE_SIZE } from "../constants";
+import { LaunchPad } from "../types/global";
 
-const PAGE_SIZE = 12;
-
-export default function LaunchPads() {
-  const { data, error, isValidating, size, setSize } = useSpaceXPaginated(
-    "/launchpads",
-    {
+const LaunchPads = () => {
+  const { data, error, isValidating, size, setSize } =
+    useSpaceXPaginated<LaunchPad>("/launchpads", {
       limit: PAGE_SIZE,
-    }
-  );
+    });
 
   return (
     <div>
       <Breadcrumbs
-        items={[{ label: "Home", to: "/" }, { label: "Launch Pads" }]}
+        items={[
+          { label: "Home", to: "/" },
+          { label: "Launch Pads", to: "#" },
+        ]}
       />
       <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
         {error && <Error />}
@@ -39,9 +40,9 @@ export default function LaunchPads() {
       />
     </div>
   );
-}
+};
 
-function LaunchPadItem({ launchPad }) {
+const LaunchPadItem = ({ launchPad }: { launchPad: LaunchPad }) => {
   return (
     <Box
       as={Link}
@@ -55,11 +56,11 @@ function LaunchPadItem({ launchPad }) {
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           {launchPad.status === "active" ? (
-            <Badge px="2" variant="solid" variantColor="green">
+            <Badge px="2" variant="solid" colorScheme="green">
               Active
             </Badge>
           ) : (
-            <Badge px="2" variant="solid" variantColor="red">
+            <Badge px="2" variant="solid" colorScheme="red">
               Retired
             </Badge>
           )}
@@ -91,4 +92,6 @@ function LaunchPadItem({ launchPad }) {
       </Box>
     </Box>
   );
-}
+};
+
+export default LaunchPads;

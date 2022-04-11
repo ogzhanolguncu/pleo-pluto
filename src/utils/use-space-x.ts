@@ -1,10 +1,10 @@
 import useSWR, { useSWRInfinite } from "swr";
-import type { LaunchList } from "../types/global";
+import { PAGE_SIZE } from "../constants";
 
 type Options = {
   limit: number,
-  order: "desc" | "asc",
-  sort: string,
+  order?: "desc" | "asc",
+  sort?: string,
   offset?: number
   site_id?: string,
 }
@@ -32,14 +32,14 @@ export const useSpaceX = (path: string | null, options?: Options) => {
   return useSWR(path ? endpointUrl : null, fetcher);
 }
 
-export const useSpaceXPaginated = (path: string, options: Options) => {
-  return useSWRInfinite<LaunchList>((pageIndex, previousPageData) => {
+export const useSpaceXPaginated = <T>(path: string, options: Options = { limit: PAGE_SIZE }) => {
+  return useSWRInfinite<T[]>((pageIndex, previousPageData) => {
     if (previousPageData && !previousPageData.length) {
       return null;
     }
     return getSpaceXUrl(path, {
       ...options,
-      offset: options.limit * pageIndex,
+      offset: options?.limit * pageIndex,
     });
   }, fetcher)
 }

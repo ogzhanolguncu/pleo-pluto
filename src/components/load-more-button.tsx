@@ -1,9 +1,9 @@
 import React from "react";
 import { Spinner, Flex, Button } from "@chakra-ui/react";
-import { LaunchList } from "../types/global";
+import { LaunchList, LaunchPadList } from "../types/global";
 
 type Props = {
-  data?: LaunchList[];
+  data?: LaunchList[] | LaunchPadList[];
   pageSize: number;
   isLoadingMore: boolean;
   loadMore: () => void;

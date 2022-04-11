@@ -84,6 +84,8 @@ const Header = ({ launch }: { launch: LaunchType }) => {
         height={["85px", "150px"]}
         objectFit="contain"
         objectPosition="bottom"
+        loading="lazy"
+        decoding="async"
       />
       <Heading
         color="white"
