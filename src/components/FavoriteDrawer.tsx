@@ -10,12 +10,12 @@ import {
   Button,
 } from "@chakra-ui/react";
 import React, { Fragment } from "react";
-import { Launch, LaunchList } from "../types/global";
+import { Launch } from "../types/global";
 import { LaunchItem } from "./LaunchItem";
 
 type Props = {
   isOpen: boolean;
-  favorites?: LaunchList;
+  favorites?: Launch[];
   onClose: () => void;
   onFavoriteToggle: (launch: Launch) => void;
 };

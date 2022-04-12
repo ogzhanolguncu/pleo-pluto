@@ -112,7 +112,6 @@ export type Launch = {
     "launch_date_source": string,
 }
 
-export type LaunchList = Launch[]
 
 
 export type LaunchPad = {
@@ -134,4 +133,3 @@ export type LaunchPad = {
     "site_name_long": string
 }
 
-export type LaunchPadList = LaunchPad[]

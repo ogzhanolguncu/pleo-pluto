@@ -10,12 +10,12 @@ import {
   Button,
 } from "@chakra-ui/react";
 import React, { Fragment } from "react";
-import { LaunchPad, LaunchPadList } from "../types/global";
+import { LaunchPad } from "../types/global";
 import { LaunchPadItem } from "./LaunchPadItem";
 
 type Props = {
   isOpen: boolean;
-  favorites?: LaunchPadList;
+  favorites?: LaunchPad[];
   onClose: () => void;
   onFavoriteToggle: (launch: LaunchPad) => void;
 };

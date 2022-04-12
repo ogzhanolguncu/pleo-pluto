@@ -2,9 +2,9 @@ import React from "react";
 import { Stack, SimpleGrid, Text } from "@chakra-ui/react";
 
 import { LaunchItem } from "./LaunchItem";
-import type { LaunchList } from "../types/global";
+import type { Launch } from "../types/global";
 
-export const RecentLaunches = ({ launches }: { launches?: LaunchList }) => {
+export const RecentLaunches = ({ launches }: { launches?: Launch[] }) => {
   if (!launches?.length) {
     return null;
   }
