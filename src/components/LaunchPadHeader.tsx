@@ -73,6 +73,7 @@ export const LaunchPadHeader = ({ launchPad }: { launchPad: LaunchPad }) => {
             fill={isLaunchFavorite && "blue.400"}
             stroke={isLaunchFavorite && "blue.400"}
             cursor="pointer"
+            data-testid={`launch-pad-favorite-${launchPad.id}`}
           />
         </Box>
       </Stack>
