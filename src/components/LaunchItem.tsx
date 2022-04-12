@@ -31,6 +31,7 @@ export const LaunchItem = ({ launch, onFavoriteToggle, favorites }: Props) => {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      data-testid={`flight-number-${launch.flight_number}`}
     >
       <Box as={Link} to={`/launches/${launch.flight_number.toString()}`}>
         <Image
@@ -89,6 +90,7 @@ export const LaunchItem = ({ launch, onFavoriteToggle, favorites }: Props) => {
                 fill={isLaunchFavorite && "blue.400"}
                 stroke={isLaunchFavorite && "blue.400"}
                 cursor="pointer"
+                data-testid={`flight-favorite-${launch.flight_number}`}
               />
             </Box>
           </Box>
@@ -99,6 +101,7 @@ export const LaunchItem = ({ launch, onFavoriteToggle, favorites }: Props) => {
             as="h4"
             lineHeight="tight"
             isTruncated
+            data-testid={`flight-name-${launch.flight_number}`}
           >
             {launch.mission_name}
           </Box>

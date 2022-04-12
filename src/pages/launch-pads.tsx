@@ -5,7 +5,7 @@ import { Error } from "../components/Error";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { LoadMoreButton } from "../components/LoadMoreButton";
 import { useSpaceXPaginated } from "../utils/use-space-x";
-import { PAGE_SIZE } from "../constants";
+import { PAGE_SIZE, ROUTES } from "../constants";
 import { LaunchPad } from "../types/global";
 import { LaunchPadItem } from "../components/LaunchPadItem";
 import { useLocalStorage } from "react-use";
@@ -41,14 +41,14 @@ const LaunchPads = () => {
 
   if (error) return <Error />;
 
+  const breadCrumbs = [
+    { label: "Home", to: ROUTES.HOME },
+    { label: "Launch Pads", to: "#" },
+  ];
+
   return (
     <>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: "/" },
-          { label: "Launch Pads", to: "#" },
-        ]}
-      />
+      <Breadcrumbs items={breadCrumbs} />
       <Button m="6" ref={btnRef} onClick={onOpen}>
         Favorites
       </Button>

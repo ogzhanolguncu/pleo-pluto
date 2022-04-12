@@ -34,6 +34,7 @@ export const LaunchPadItem = ({
       rounded="lg"
       overflow="hidden"
       position="relative"
+      data-testid={`launch-pad-${launchPad.id}`}
     >
       <Box as={Link} to={`/launch-pads/${launchPad.site_id}`}>
         <Box p="6">
@@ -67,6 +68,7 @@ export const LaunchPadItem = ({
               stroke={isLaunchFavorite && "blue.400"}
               cursor="pointer"
               ml="3rem"
+              data-testid={`launch-pad-favorite-${launchPad.id}`}
             />
           </Box>
           <Box
@@ -75,6 +77,7 @@ export const LaunchPadItem = ({
             as="h4"
             lineHeight="tight"
             isTruncated
+            data-testid={`launch-pad-name-${launchPad.id}`}
           >
             {launchPad.name}
           </Box>

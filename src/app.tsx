@@ -7,17 +7,18 @@ import Launch from "./pages/launch";
 import Home from "./pages/home";
 import LaunchPads from "./pages/launch-pads";
 import LaunchPad from "./pages/launch-pad";
+import { ROUTES } from "./constants";
 
 export default function App() {
   return (
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/launches" element={<Launches />} />
-        <Route path="/launches/:launchId" element={<Launch />} />
-        <Route path="/launch-pads" element={<LaunchPads />} />
-        <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
+        <Route path={ROUTES.HOME} element={<Home />} />
+        <Route path={ROUTES.LAUNCHES} element={<Launches />} />
+        <Route path={ROUTES.LAUNCH_DETAIL} element={<Launch />} />
+        <Route path={ROUTES.LAUNCH_PADS} element={<LaunchPads />} />
+        <Route path={ROUTES.LAUNCH_PAD_DETAILS} element={<LaunchPad />} />
       </Routes>
     </>
   );

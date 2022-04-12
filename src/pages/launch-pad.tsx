@@ -10,6 +10,7 @@ import { Map } from "../components/Map";
 import { LaunchPadHeader } from "../components/LaunchPadHeader";
 import { LocationAndVehicles } from "../components/LocationAndVehicles";
 import { RecentLaunches } from "../components/RecentLaunches";
+import { ROUTES } from "../constants";
 
 export default function LaunchPad() {
   let { launchPadId } = useParams();
@@ -36,15 +37,15 @@ export default function LaunchPad() {
     );
   }
 
+  const breadCrumbs = [
+    { label: "Home", to: ROUTES.HOME },
+    { label: "Launch Pads", to: ROUTES.LAUNCH_PADS },
+    { label: launchPad?.name, to: "#" },
+  ];
+
   return (
-    <div>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: "/" },
-          { label: "Launch Pads", to: "/launch-pads" },
-          { label: launchPad.name, to: "#" },
-        ]}
-      />
+    <>
+      <Breadcrumbs items={breadCrumbs} />
       <LaunchPadHeader launchPad={launchPad} />
       <Box m={[3, 6]}>
         <LocationAndVehicles launchPad={launchPad} />
@@ -57,6 +58,6 @@ export default function LaunchPad() {
         />
         <RecentLaunches launches={launches} />
       </Box>
-    </div>
+    </>
   );
 }
