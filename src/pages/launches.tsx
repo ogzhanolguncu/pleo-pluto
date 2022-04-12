@@ -6,7 +6,7 @@ import { Breadcrumbs } from "../components/Breadcrumbs";
 import { LoadMoreButton } from "../components/LoadMoreButton";
 import { Error } from "../components/Error";
 import { LaunchItem } from "../components/LaunchItem";
-import { PAGE_SIZE } from "../constants";
+import { PAGE_SIZE, ROUTES } from "../constants";
 import { useLocalStorage } from "react-use";
 
 import type { Launch } from "../types/global";
@@ -47,7 +47,7 @@ export default function Launches() {
       <Flex width="100%" alignItems="center" justifyContent="space-between">
         <Breadcrumbs
           items={[
-            { label: "Home", to: "/" },
+            { label: "Home", to: ROUTES.HOME },
             { label: "Launches", to: "#" },
           ]}
         />

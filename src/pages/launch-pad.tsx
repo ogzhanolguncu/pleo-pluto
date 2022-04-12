@@ -10,6 +10,7 @@ import { Map } from "../components/Map";
 import { LaunchPadHeader } from "../components/LaunchPadHeader";
 import { LocationAndVehicles } from "../components/LocationAndVehicles";
 import { RecentLaunches } from "../components/RecentLaunches";
+import { ROUTES } from "../constants";
 
 export default function LaunchPad() {
   let { launchPadId } = useParams();
@@ -40,8 +41,8 @@ export default function LaunchPad() {
     <div>
       <Breadcrumbs
         items={[
-          { label: "Home", to: "/" },
-          { label: "Launch Pads", to: "/launch-pads" },
+          { label: "Home", to: ROUTES.HOME },
+          { label: "Launch Pads", to: ROUTES.LAUNCH_PADS },
           { label: launchPad.name, to: "#" },
         ]}
       />

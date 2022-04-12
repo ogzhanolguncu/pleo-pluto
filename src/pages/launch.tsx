@@ -11,6 +11,7 @@ import { TimeAndLocation } from "../components/TimeAndLocation";
 import { RocketInfo } from "../components/RocketInfo";
 import { Video } from "../components/Video";
 import { Gallery } from "../components/Gallery";
+import { ROUTES } from "../constants";
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -31,8 +32,8 @@ export default function Launch() {
     <>
       <Breadcrumbs
         items={[
-          { label: "Home", to: "/" },
-          { label: "Launches", to: "/launches" },
+          { label: "Home", to: ROUTES.HOME },
+          { label: "Launches", to: ROUTES.LAUNCHES },
           { label: `#${launch.flight_number}`, to: "#" },
         ]}
       />

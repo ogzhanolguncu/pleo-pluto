@@ -5,7 +5,7 @@ import { Error } from "../components/Error";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { LoadMoreButton } from "../components/LoadMoreButton";
 import { useSpaceXPaginated } from "../utils/use-space-x";
-import { PAGE_SIZE } from "../constants";
+import { PAGE_SIZE, ROUTES } from "../constants";
 import { LaunchPad } from "../types/global";
 import { LaunchPadItem } from "../components/LaunchPadItem";
 import { useLocalStorage } from "react-use";
@@ -45,7 +45,7 @@ const LaunchPads = () => {
     <>
       <Breadcrumbs
         items={[
-          { label: "Home", to: "/" },
+          { label: "Home", to: ROUTES.HOME },
           { label: "Launch Pads", to: "#" },
         ]}
       />
