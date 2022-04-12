@@ -5,7 +5,7 @@ import { Flex, Box, Text, Spinner } from "@chakra-ui/react";
 import { useSpaceX } from "../utils/use-space-x";
 import { Error } from "../components/Error";
 import { Breadcrumbs } from "../components/Breadcrumbs";
-import type { LaunchList, LaunchPad as LaunchPadType } from "../types/global";
+import type { Launch, LaunchPad as LaunchPadType } from "../types/global";
 import { Map } from "../components/Map";
 import { LaunchPadHeader } from "../components/LaunchPadHeader";
 import { LocationAndVehicles } from "../components/LocationAndVehicles";
@@ -17,7 +17,7 @@ export default function LaunchPad() {
     `/launchpads/${launchPadId}`
   );
 
-  const { data: launches } = useSpaceX<LaunchList>(
+  const { data: launches } = useSpaceX<Launch[]>(
     launchPad ? "/launches/past" : null,
     {
       limit: 3,

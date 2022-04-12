@@ -1,9 +1,32 @@
-import { Flex, Heading, Stack, Badge } from "@chakra-ui/react";
+import { Flex, Heading, Stack, Badge, Box, Icon } from "@chakra-ui/react";
 import React from "react";
+import { Star } from "react-feather";
+import { useLocalStorage } from "react-use";
 import type { LaunchPad } from "../types/global";
 import { randomColor } from "../utils/random-color";
 
 export const LaunchPadHeader = ({ launchPad }: { launchPad: LaunchPad }) => {
+  const [favorites, setFavorite] = useLocalStorage<LaunchPad[]>(
+    "favoritesLaunchPads",
+    []
+  );
+
+  const isLaunchFavorite = favorites?.find(
+    (launchItem) => launchItem.id === launchPad.id
+  );
+
+  const handleFavoriteToggle = (launch: LaunchPad) => {
+    if (isLaunchFavorite) {
+      setFavorite([
+        ...(favorites?.filter(
+          (favoriteItem) => favoriteItem.id !== isLaunchFavorite.id
+        ) ?? []),
+      ]);
+      return;
+    }
+    setFavorite([...(favorites ?? []), launch]);
+  };
+
   return (
     <Flex
       background={`linear-gradient(${randomColor()}, ${randomColor()})`}
@@ -41,6 +64,17 @@ export const LaunchPadHeader = ({ launchPad }: { launchPad: LaunchPad }) => {
             Retired
           </Badge>
         )}
+        <Box ml="7">
+          <Icon
+            w="6"
+            h="6"
+            as={Star}
+            onClick={() => handleFavoriteToggle(launchPad)}
+            fill={isLaunchFavorite && "blue.400"}
+            stroke={isLaunchFavorite && "blue.400"}
+            cursor="pointer"
+          />
+        </Box>
       </Stack>
     </Flex>
   );
