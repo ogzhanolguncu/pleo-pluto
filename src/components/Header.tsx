@@ -89,6 +89,7 @@ export const Header = ({ launch }: { launch: Launch }) => {
             fill={isLaunchFavorite && "blue.400"}
             stroke={isLaunchFavorite && "blue.400"}
             cursor="pointer"
+            data-testid={`flight-favorite-${launch.flight_number}`}
           />
         </Box>
       </Stack>
