@@ -37,15 +37,15 @@ export default function LaunchPad() {
     );
   }
 
+  const breadCrumbs = [
+    { label: "Home", to: ROUTES.HOME },
+    { label: "Launch Pads", to: ROUTES.LAUNCH_PADS },
+    { label: launchPad?.name, to: "#" },
+  ];
+
   return (
-    <div>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: ROUTES.HOME },
-          { label: "Launch Pads", to: ROUTES.LAUNCH_PADS },
-          { label: launchPad.name, to: "#" },
-        ]}
-      />
+    <>
+      <Breadcrumbs items={breadCrumbs} />
       <LaunchPadHeader launchPad={launchPad} />
       <Box m={[3, 6]}>
         <LocationAndVehicles launchPad={launchPad} />
@@ -58,6 +58,6 @@ export default function LaunchPad() {
         />
         <RecentLaunches launches={launches} />
       </Box>
-    </div>
+    </>
   );
 }

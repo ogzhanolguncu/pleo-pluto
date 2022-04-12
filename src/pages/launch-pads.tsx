@@ -41,14 +41,14 @@ const LaunchPads = () => {
 
   if (error) return <Error />;
 
+  const breadCrumbs = [
+    { label: "Home", to: ROUTES.HOME },
+    { label: "Launch Pads", to: "#" },
+  ];
+
   return (
     <>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: ROUTES.HOME },
-          { label: "Launch Pads", to: "#" },
-        ]}
-      />
+      <Breadcrumbs items={breadCrumbs} />
       <Button m="6" ref={btnRef} onClick={onOpen}>
         Favorites
       </Button>

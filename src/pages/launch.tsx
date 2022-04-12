@@ -28,15 +28,15 @@ export default function Launch() {
     );
   }
 
+  const breadCrumbs = [
+    { label: "Home", to: ROUTES.HOME },
+    { label: "Launches", to: ROUTES.LAUNCHES },
+    { label: `#${launch.flight_number}`, to: "#" },
+  ];
+
   return (
     <>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: ROUTES.HOME },
-          { label: "Launches", to: ROUTES.LAUNCHES },
-          { label: `#${launch.flight_number}`, to: "#" },
-        ]}
-      />
+      <Breadcrumbs items={breadCrumbs} />
       <Header launch={launch} />
       <Box m={[3, 6]}>
         <TimeAndLocation launch={launch} />

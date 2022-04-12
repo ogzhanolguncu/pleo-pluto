@@ -42,15 +42,15 @@ export default function Launches() {
 
   if (error) return <Error />;
 
+  const breadCrumbs = [
+    { label: "Home", to: ROUTES.HOME },
+    { label: "Launches", to: "#" },
+  ];
+
   return (
     <>
       <Flex width="100%" alignItems="center" justifyContent="space-between">
-        <Breadcrumbs
-          items={[
-            { label: "Home", to: ROUTES.HOME },
-            { label: "Launches", to: "#" },
-          ]}
-        />
+        <Breadcrumbs items={breadCrumbs} />
         <Button m="6" ref={btnRef} onClick={onOpen}>
           Favorites
         </Button>
